@@ -1,10 +1,20 @@
 <?php
 
+/**
+ * 1 - Cadastrar as empresas
+ * 2 - Cadastrar estabelecimentos
+ *
+ */
+
 require "vendor/autoload.php";
 
-use PopEmpresasBrasil\Cnae;
+use PopEmpresasBrasil\Estabelecimento;
+use PopEmpresasBrasil\Socio;
 
-$cnae = new Cnae('arquivos/cnaes_rf.csv');
+//$cnae = new Estabelecimento('arquivos/estabelecimento.csv');
+//$cnae->popularTabela();
+
+$cnae = new Socio('arquivos/socio.csv');
 $cnae->popularTabela();
 
 ?>

@@ -5,7 +5,7 @@ namespace PopEmpresasBrasil;
 interface PopEmpresasBrasilInterface
 {
 
-    public function popular();
+    public function popularTabela();
 
     public function lerCSV();
 

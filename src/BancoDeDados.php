@@ -23,6 +23,16 @@ class BancoDeDados
         $this->conexao->close();
     }
 
+    public function select($tabela, $colunas = '*', $where)
+    {
+        $sql = "SELECT $colunas FROM $tabela WHERE $where";
+        $result = $this->conexao->query($sql);
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+        return null;
+    }
+
     public function insert(string $tabela, array &$dados)
     {
         if (!$dados) {
@@ -34,9 +44,11 @@ class BancoDeDados
             $valores .= '\'' . $this->conexao->real_escape_string($valor) . '\'';
         }
         $query = "INSERT INTO $tabela ({$colunas}) VALUES ({$valores});";
+        echo $query;
+        echo PHP_EOL;
         try {
             $this->conexao->real_query($query);
-            return $this->conexao->insert_id;
+            return (int)$this->conexao->insert_id;
         } catch (\Exception $e) {
             return $e->getMessage();
         }
