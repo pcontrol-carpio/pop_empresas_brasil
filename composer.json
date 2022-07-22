@@ -1,0 +1,15 @@
+{
+    "name": "helde/pop_empresas_brasil",
+    "authors": [
+        {
+            "name": "Helder",
+            "email": "helderwmarcos@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PopEmpresasBrasil\\": "src"
+        }
+    },
+    "require": {}
+}
