@@ -46,6 +46,7 @@ class BancoDeDados
         $query = "INSERT INTO $tabela ({$colunas}) VALUES ({$valores});";
         echo $query;
         echo PHP_EOL;
+        echo '<hr>';
         try {
             $this->conexao->real_query($query);
             return (int)$this->conexao->insert_id;

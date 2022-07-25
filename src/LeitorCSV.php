@@ -14,11 +14,11 @@ class LeitorCSV
             echo('Arquivo não encontrado.');
             exit;
         }
-        $extension = explode('.', $arquivo);
-        if (end($extension) !== 'csv') {
-            echo('Arquivo não possui a extensção CSV.');
-            exit;
-        }
+//        $extension = explode('.', $arquivo);
+//        if (end($extension) !== 'csv') {
+//            echo('Arquivo não possui a extensção CSV.');
+//            exit;
+//        }
         $this->arquivo = fopen($arquivo, 'r');
         $this->separador = $separador;
     }
