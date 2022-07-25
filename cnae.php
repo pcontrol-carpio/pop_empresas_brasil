@@ -15,4 +15,7 @@ if ($arquivos) {
     }
 }
 
+echo PHP_EOL;
+echo 'CNAE finalizado.';
+
 ?>
