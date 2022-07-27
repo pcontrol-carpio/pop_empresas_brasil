@@ -1,21 +1,22 @@
 <?php
 
 require "vendor/autoload.php";
+require "config.php";
 
-use PopEmpresasBrasil\Empresa;
+use PopEmpresasBrasil\Estabelecimento;
 use PopEmpresasBrasil\LeitorArquivos;
 
-$leitorArquivos = new LeitorArquivos('empre');
+$leitorArquivos = new LeitorArquivos('estabele');
 
 $arquivos = $leitorArquivos->lerArquivos();
 if ($arquivos) {
     foreach ($arquivos as $arquivo) {
-        $cnae = new Empresa($arquivo);
+        $cnae = new Estabelecimento($arquivo);
         $cnae->popularTabela();
     }
 }
 
 echo PHP_EOL;
-echo 'Empresa finalizado.';
+echo 'Estabelecimento finalizado.';
 
 ?>

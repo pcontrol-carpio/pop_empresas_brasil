@@ -1,6 +1,7 @@
 <?php
 
 require "vendor/autoload.php";
+require "config.php";
 
 use PopEmpresasBrasil\Empresa;
 use PopEmpresasBrasil\LeitorArquivos;

@@ -21,7 +21,8 @@ class PopEmpresasBrasil implements PopEmpresasBrasilInterface
         $contador = 0;
         $linhas = $this->lerCSV();
         if ($linhas) {
-            $bd = new BancoDeDados('localhost', 'root', '1234', 'base_empresas_br');
+            $bd = new BancoDeDados();
+            $bd->conectar();
             foreach ($linhas as $linha) {
                 $registros[] = $linha;
                 $contador++;

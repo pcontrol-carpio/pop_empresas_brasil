@@ -16,17 +16,20 @@ class Base
      * @var array
      */
     private $dados;
-    /**
-     * @var string
-     */
+
+
     private $razaoSocial;
+    /**
+     * @var BancoDeDados
+     */
+    private $bd;
 
-
-    public function __construct(int $estabelecimentoId, string $razaoSocial, array &$dados)
+    public function __construct(BancoDeDados &$bd, int $estabelecimentoId, $razaoSocial, array &$dados)
     {
         $this->estabelecimentoId = $estabelecimentoId;
         $this->dados = &$dados;
         $this->razaoSocial = $razaoSocial;
+        $this->bd = $bd;
     }
 
     public function popularTabela()
@@ -45,8 +48,12 @@ class Base
             'uf' => $this->dados['uf'],
             'municipio' => $this->dados['municipio'],
         ];
-        $bd = new BancoDeDados('localhost', 'root', '1234', 'base_empresas_br');
-        $bd->insert($this->tabela, $dados);
+
+//        echo '<pre>';
+//        var_dump($dados);
+//        echo '</pre>';
+
+        $this->bd->insert($this->tabela, $dados);
     }
 
 }

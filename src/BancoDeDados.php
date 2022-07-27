@@ -7,11 +7,16 @@ class BancoDeDados
 
     private $conexao;
 
-    public function __construct(string $servidor, string $usuario, string $senha, string $bancoDeDados)
+    public function conectar()
     {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         try {
-            $this->conexao = mysqli_connect($servidor, $usuario, $senha, $bancoDeDados);
+            $this->conexao = mysqli_connect(
+                $GLOBALS['config']['SERVIDOR'],
+                $GLOBALS['config']['USUARIO'],
+                $GLOBALS['config']['SENHA'],
+                $GLOBALS['config']['BANCO'],
+            );
             mysqli_set_charset($this->conexao, 'utf8mb4');
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -46,7 +51,8 @@ class BancoDeDados
         $query = "INSERT INTO $tabela ({$colunas}) VALUES ({$valores});";
         echo $query;
         echo PHP_EOL;
-        echo '<hr>';
+        echo PHP_EOL;
+        echo '<hr/>';
         try {
             $this->conexao->real_query($query);
             return (int)$this->conexao->insert_id;
