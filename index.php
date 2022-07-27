@@ -2,20 +2,20 @@
 
 require "vendor/autoload.php";
 
-use PopEmpresasBrasil\Cnae;
+use PopEmpresasBrasil\Empresa;
 use PopEmpresasBrasil\LeitorArquivos;
 
-$leitorArquivos = new LeitorArquivos('cnae');
+$leitorArquivos = new LeitorArquivos('empre');
 
 $arquivos = $leitorArquivos->lerArquivos();
 if ($arquivos) {
     foreach ($arquivos as $arquivo) {
-        $cnae = new Cnae($arquivo);
+        $cnae = new Empresa($arquivo);
         $cnae->popularTabela();
     }
 }
 
 echo PHP_EOL;
-echo 'CNAE finalizado.';
+echo 'Empresa finalizado.';
 
 ?>

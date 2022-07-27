@@ -55,5 +55,35 @@ class BancoDeDados
         }
     }
 
+    public function prepararInsertEmMassa(array $registros)
+    {
+        $query = '';
+        foreach ($registros as $registro) {
+            $query .= '( ';
+            foreach ($registro as $item) {
+                $query .= '\'' . $item . '\',';
+            }
+            $query = substr($query, 0, -1);
+            $query .= '),';
+        }
+        $query = substr($query, 0, -1);
+        return $query;
+    }
+
+    public function insertMassa(string $tabela, array $colunas, string $query)
+    {
+        $colunas = implode(',', $colunas);
+        $query = "INSERT INTO {$tabela} ({$colunas}) VALUES {$query};";
+        echo $query;
+        echo PHP_EOL;
+        echo '<hr>';
+        try {
+            $this->conexao->real_query($query);
+            return (int)$this->conexao->insert_id;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
 
 }
