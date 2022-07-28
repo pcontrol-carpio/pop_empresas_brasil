@@ -72,8 +72,7 @@ class BancoDeDados
             $query = substr($query, 0, -1);
             $query .= '),';
         }
-        $query = substr($query, 0, -1);
-        return $query;
+        return substr($query, 0, -1);
     }
 
     public function insertMassa(string $tabela, array $colunas, string $query)
