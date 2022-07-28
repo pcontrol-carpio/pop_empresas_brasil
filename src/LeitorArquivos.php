@@ -13,14 +13,20 @@ class LeitorArquivos
      * @var false|resource
      */
     private $dir;
+
     /**
      * @var string
      */
-    private $caminho = 'arquivos/';
+
+    /**
+     * @var mixed
+     */
+    private $caminho;
 
     public function __construct(string $termo)
     {
         $this->termo = $termo;
+        $this->caminho = $GLOBALS['config']['ARQUIVOS_DIR'];
         $this->dir = opendir($this->caminho);
     }
 
@@ -34,7 +40,7 @@ class LeitorArquivos
         if ($this->dir) {
             while (($arquivo = readdir($this->dir)) !== false) {
                 if (strpos(strtolower($arquivo), $this->termo) !== false) {
-                    yield $this->caminho . $arquivo;
+                    yield "$this->caminho/$arquivo";
                 }
             }
         }

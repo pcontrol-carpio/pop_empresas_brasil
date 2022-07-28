@@ -16,7 +16,7 @@ class PopEmpresasBrasil implements PopEmpresasBrasilInterface
 
     public function popularTabela()
     {
-        $limite = 10;
+        $limite = 5;
         $registros = [];
         $contador = 0;
         $linhas = $this->lerCSV();
@@ -28,7 +28,7 @@ class PopEmpresasBrasil implements PopEmpresasBrasilInterface
                 $contador++;
                 if ($contador == $limite) {
                     $query = $bd->prepararInsertEmMassa($registros);
-                    $bd->insertMassa('empresa', $this->colunas, $query);
+                    $bd->insertMassa($this->tabela, $this->colunas, $query);
                     $registros = [];
                     $contador = 0;
                 }
