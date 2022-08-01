@@ -51,7 +51,7 @@ class Estabelecimento extends PopEmpresasBrasil
             foreach ($linhas as $linha) {
                 if (!is_null($linha[0]) && !empty($linha[0])) {
                     $empresa = $this->selectEmpresa($bd, $linha[0]);
-                    if (count($linha) == 30) {
+                    if (!is_null($empresa) && !empty($empresa) && count($linha) == 30) {
                         $linha[6] = $this->formatarData($linha[6]);
                         $linha[10] = $this->formatarData($linha[10]);
                         $dados = array_combine($this->colunas, $linha);
@@ -63,8 +63,6 @@ class Estabelecimento extends PopEmpresasBrasil
                         }
                         $estabelecimentoId = $bd->insert($this->tabela, $dados);
                         $this->popularTabelaBase($bd, $estabelecimentoId, $razaoSocial, $dados);
-                    } else {
-                        file_put_contents("array_combine.txt", $linha, FILE_APPEND);
                     }
                 }
             }

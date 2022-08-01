@@ -28,6 +28,16 @@ class BancoDeDados
         $this->conexao->close();
     }
 
+    public function query($query)
+    {
+        try {
+            $this->conexao->query($query);
+            return true;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function select($tabela, $colunas = '*', $where)
     {
         $sql = "SELECT $colunas FROM $tabela WHERE $where";

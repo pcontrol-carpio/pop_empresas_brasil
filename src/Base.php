@@ -37,6 +37,7 @@ class Base
             'cnpj' => $this->dados['cnpj'],
             'razao_social' => $this->razaoSocial,
             'nome_fantasia' => $this->dados['nome_fantasia'],
+            'situacao_cadastral' => $this->dados['situacao_cadastral'],
             'data_situacao_cadastral' => $this->dados['data_situacao_cadastral'],
             'data_inicio_atividade' => $this->dados['data_inicio_atividade'],
             'cnae_fiscal_principal' => $this->dados['cnae_fiscal_principal'],
