@@ -25,14 +25,23 @@ class Socio extends PopEmpresasBrasil
     {
         $linhas = $this->lerCSV();
         if ($linhas) {
-            $bd = new BancoDeDados('localhost', 'root', '1234', 'base_empresas_br');
+            $bd = new BancoDeDados();
+            $bd->conectar();
             foreach ($linhas as $linha) {
                 $empresa = $this->selectEmpresa($bd, $linha[0]);
-                $dados = array_combine($this->colunas, $linha);
-                $dados['empresa_id'] = $empresa['id'];
-                $bd->insert($this->tabela, $dados);
+                if (!is_null($empresa) && !is_null($empresa)) {
+                    $linha[5] = $this->formatarData($linha[5]);
+                    $dados = array_combine($this->colunas, $linha);
+                    $dados['empresa_id'] = $empresa['id'];
+                    $bd->insert($this->tabela, $dados);
+                }
             }
         }
+    }
+
+    private function formatarData($data)
+    {
+        return substr($data, 0, 4);
     }
 
     private function selectEmpresa(BancoDeDados $bd, string $cnpj_basico)

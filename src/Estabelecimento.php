@@ -2,6 +2,8 @@
 
 namespace PopEmpresasBrasil;
 
+use SplFixedArray;
+
 class Estabelecimento extends PopEmpresasBrasil
 {
 
@@ -49,8 +51,9 @@ class Estabelecimento extends PopEmpresasBrasil
             foreach ($linhas as $linha) {
                 if (!is_null($linha[0]) && !empty($linha[0])) {
                     $empresa = $this->selectEmpresa($bd, $linha[0]);
-
                     if (count($linha) == 30) {
+                        $linha[6] = $this->formatarData($linha[6]);
+                        $linha[10] = $this->formatarData($linha[10]);
                         $dados = array_combine($this->colunas, $linha);
                         $dados['cnpj'] = $linha[0] . $linha[1] . $linha[2];
                         $dados['empresa_id'] = !is_null($empresa) ? $empresa['id'] : null;
@@ -63,10 +66,14 @@ class Estabelecimento extends PopEmpresasBrasil
                     } else {
                         file_put_contents("array_combine.txt", $linha, FILE_APPEND);
                     }
-
                 }
             }
         }
+    }
+
+    private function formatarData($data)
+    {
+        return substr($data, 0, 4);
     }
 
     private function selectEmpresa(BancoDeDados $bd, string $cnpjBasico)

@@ -8,9 +8,6 @@ class Base
 
     public $tabela = 'base';
 
-    /**
-     * @var int
-     */
     private $estabelecimentoId;
     /**
      * @var array
@@ -24,7 +21,7 @@ class Base
      */
     private $bd;
 
-    public function __construct(BancoDeDados &$bd, int $estabelecimentoId, $razaoSocial, array &$dados)
+    public function __construct(BancoDeDados &$bd, $estabelecimentoId, $razaoSocial, array &$dados)
     {
         $this->estabelecimentoId = $estabelecimentoId;
         $this->dados = &$dados;
@@ -40,7 +37,6 @@ class Base
             'cnpj' => $this->dados['cnpj'],
             'razao_social' => $this->razaoSocial,
             'nome_fantasia' => $this->dados['nome_fantasia'],
-            'motivo_situacao_cadastral' => $this->dados['motivo_situacao_cadastral'],
             'data_situacao_cadastral' => $this->dados['data_situacao_cadastral'],
             'data_inicio_atividade' => $this->dados['data_inicio_atividade'],
             'cnae_fiscal_principal' => $this->dados['cnae_fiscal_principal'],
@@ -48,10 +44,6 @@ class Base
             'uf' => $this->dados['uf'],
             'municipio' => $this->dados['municipio'],
         ];
-
-//        echo '<pre>';
-//        var_dump($dados);
-//        echo '</pre>';
 
         $this->bd->insert($this->tabela, $dados);
     }
