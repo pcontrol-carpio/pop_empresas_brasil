@@ -2,8 +2,6 @@
 
 namespace PopEmpresasBrasil;
 
-use PopEmpresasBrasil\BancoDeDados;
-
 class PopEmpresasBrasil implements PopEmpresasBrasilInterface
 {
 
@@ -16,22 +14,13 @@ class PopEmpresasBrasil implements PopEmpresasBrasilInterface
 
     public function popularTabela()
     {
-        $limite = 5;
-        $registros = [];
-        $contador = 0;
         $linhas = $this->lerCSV();
         if ($linhas) {
             $bd = new BancoDeDados();
             $bd->conectar();
             foreach ($linhas as $linha) {
-                $registros[] = $linha;
-                $contador++;
-                if ($contador == $limite) {
-                    $query = $bd->prepararInsertEmMassa($registros);
-                    $bd->insertMassa($this->tabela, $this->colunas, $query);
-                    $registros = [];
-                    $contador = 0;
-                }
+                $registros = array_combine($this->colunas, $linha);
+                $bd->insert($this->tabela, $registros);
             }
         }
     }

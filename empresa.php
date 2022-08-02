@@ -4,22 +4,10 @@ require "vendor/autoload.php";
 require "config.php";
 
 use PopEmpresasBrasil\Empresa;
-use PopEmpresasBrasil\LeitorArquivos;
 
-$leitorArquivos = new LeitorArquivos('empre');
+$dir = '../data/output-extract/K3241.K03200Y0.D20709.EMPRECSV';
 
-$arquivos = $leitorArquivos->lerArquivos();
-if ($arquivos) {
-    foreach ($arquivos as $arquivo) {
-        $cnae = new Empresa($arquivo);
-        $cnae->popularTabela();
-    }
-}
-
-//$dir = '../data/output-extract/K3241.K03200Y0.D20709.EMPRECSV';
-$dir = '../data/output-extract/K3241.K03200Y1.D20709.EMPRECSV';
-
-$cnae = new Empresa('');
+$cnae = new Empresa($dir);
 $cnae->popularTabela();
 
 echo PHP_EOL;
