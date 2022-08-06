@@ -52,36 +52,33 @@ class Estabelecimento extends PopEmpresasBrasil
                 if (!is_null($linha[0]) && !empty($linha[0])) {
                     $empresa = $this->selectEmpresa($bd, $linha[0]);
                     if (!is_null($empresa) && !empty($empresa) && count($linha) == 30) {
-                        $linha[6] = $this->formatarData($linha[6]);
-                        $linha[10] = $this->formatarData($linha[10]);
-                        $dados = array_combine($this->colunas, $linha);
-                        $dados['cnpj'] = $linha[0] . $linha[1] . $linha[2];
-                        $dados['empresa_id'] = !is_null($empresa) ? $empresa['id'] : null;
+
+                        $dadosEstabelecimento = array_combine($this->colunas, $linha);
+                        $dadosEstabelecimento['cnpj'] = $linha[0] . $linha[1] . $linha[2];
+                        $dadosEstabelecimento['empresa_id'] = !is_null($empresa) ? $empresa['id'] : null;
+
                         $razaoSocial = !is_null($empresa) ? $empresa['razao_social'] : null;
-                        if (empty($linha[4])) {
-                            $dados['nome_fantasia'] = $razaoSocial;
+                        if (empty($linha[4]) || is_null($linha[4])) {
+                            $dadosEstabelecimento['nome_fantasia'] = $razaoSocial;
                         }
-                        $estabelecimentoId = $bd->insert($this->tabela, $dados);
-                        $this->popularTabelaBase($bd, $estabelecimentoId, $razaoSocial, $dados);
+
+                        $estabelecimentoId = $bd->insert($this->tabela, $dadosEstabelecimento);
+                        $this->popularTabelaBase($bd, $estabelecimentoId, $empresa, $dadosEstabelecimento);
                     }
                 }
             }
         }
     }
 
-    private function formatarData($data)
-    {
-        return substr($data, 0, 4);
-    }
-
     private function selectEmpresa(BancoDeDados $bd, string $cnpjBasico)
     {
-        return $bd->select('empresa', "id, razao_social", "cnpj_basico = '" . $cnpjBasico . "'");
+        $colunas = "id, razao_social, natureza_juridica, capital_social, porte ";
+        return $bd->select('empresa', $colunas, "cnpj_basico = '" . $cnpjBasico . "'");
     }
 
-    private function popularTabelaBase(BancoDeDados $bd, $estabelecimentoId, $razaoSocial, array &$dados)
+    private function popularTabelaBase(BancoDeDados $bd, $estabelecimentoId, $empresa, array &$dadosEstabelecimento)
     {
-        $base = new Base($bd, $estabelecimentoId, $razaoSocial, $dados);
+        $base = new Base($bd, $estabelecimentoId, $empresa, $dadosEstabelecimento);
         $base->popularTabela();
     }
 

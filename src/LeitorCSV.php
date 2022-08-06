@@ -26,7 +26,7 @@ class LeitorCSV
     public function lerArquivo(): iterable
     {
         while (!feof($this->arquivo)) {
-            yield fgetcsv($this->arquivo, null, $this->separador);
+            yield fgetcsv($this->arquivo, null, $this->separador, '"', '"');
         }
     }
 

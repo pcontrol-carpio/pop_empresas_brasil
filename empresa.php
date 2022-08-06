@@ -5,7 +5,8 @@ require "config.php";
 
 use PopEmpresasBrasil\Empresa;
 
-$dir = '../data/output-extract/K3241.K03200Y0.D20709.EMPRECSV';
+//$dir = '../data/output-extract/K3241.K03200Y0.D20709.EMPRECSV';
+$dir = 'arquivos/K3241.K03200Y0.D20709.EMPRECSV';
 
 $cnae = new Empresa($dir);
 $cnae->popularTabela();

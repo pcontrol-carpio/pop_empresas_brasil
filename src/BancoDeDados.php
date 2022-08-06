@@ -56,7 +56,11 @@ class BancoDeDados
         $colunas = implode(',', array_keys($dados));
         foreach (array_values($dados) as $valor) {
             isset($valores) ? $valores .= ',' : $valores = '';
-            $valores .= '\'' . $this->conexao->real_escape_string($valor) . '\'';
+            if (!is_string($valor)) {
+                $valores .= $valor;
+            } else {
+                $valores .= '\'' . $this->conexao->real_escape_string($valor) . '\'';
+            }
         }
         $query = "INSERT INTO $tabela ({$colunas}) VALUES ({$valores});";
         echo $query;
