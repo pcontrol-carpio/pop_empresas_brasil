@@ -19,30 +19,37 @@ class Simples extends PopEmpresasBrasil
 
     public function popularTabela()
     {
-        $limite = 5;
-        $registros = [];
-        $contador = 0;
         $linhas = $this->lerCSV();
         if ($linhas) {
             $bd = new BancoDeDados();
             $bd->conectar();
             foreach ($linhas as $linha) {
-                $linha[1] = $this->toInt($linha[1]);
-                $linha[4] = $this->toInt($linha[4]);
-                $linha[2] = $this->formatarData($linha[2]);
-                $linha[3] = $this->formatarData($linha[3]);
-                $linha[5] = $this->formatarData($linha[5]);
-                $linha[6] = $this->formatarData($linha[6]);
-                $registros[] = $linha;
-                $contador++;
-                if ($contador == $limite) {
-                    $query = $bd->prepararInsertEmMassa($registros);
-                    $bd->insertMassa($this->tabela, $this->colunas, $query);
-                    $registros = [];
-                    $contador = 0;
+                $empresa = $this->selectEmpresa($bd, $linha[0]);
+                if ($empresa) {
+                    $linha[1] = $this->toInt($linha[1]);
+                    $linha[4] = $this->toInt($linha[4]);
+                    $linha[2] = $this->formatarData($linha[2]);
+                    $linha[3] = $this->formatarData($linha[3]);
+                    $linha[5] = $this->formatarData($linha[5]);
+                    $linha[6] = $this->formatarData($linha[6]);
+                    $dados = array_combine($this->colunas, $linha);
+                    $bd->insert($this->tabela, $dados);
+                    $this->updateBase($bd, $empresa['id'], $dados);
                 }
             }
         }
+    }
+
+    private function updateBase($bd, $empresaId, array &$data)
+    {
+        $query = "UPDATE base SET simples = {$data['opcao_pelo_simples']}, mei = {$data['opcao_pelo_mei']} WHERE empresa_id = {$empresaId};";
+        echo $query;
+        return $bd->query($query);
+    }
+
+    private function selectEmpresa(BancoDeDados $bd, string $cnpj_basico)
+    {
+        return $bd->select('empresa', "id, razao_social", "cnpj_basico = '" . $cnpj_basico . "'");
     }
 
     private function toInt($val)
@@ -58,10 +65,6 @@ class Simples extends PopEmpresasBrasil
 
     private function formatarData($data)
     {
-        $ano = substr($data, 0, 4);
-        $mes = substr($data, 4, 2);
-        $dia = substr($data, -2);
-        return "$ano-$mes-$dia";
+        return substr($data, 0, 4);
     }
-
 }

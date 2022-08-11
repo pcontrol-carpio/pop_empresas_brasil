@@ -30,7 +30,11 @@ class Socio extends PopEmpresasBrasil
             foreach ($linhas as $linha) {
                 $empresa = $this->selectEmpresa($bd, $linha[0]);
                 if (!is_null($empresa) && !is_null($empresa)) {
+                    $linha[1] = (int)$linha[1];
+                    $linha[4] = (int)$linha[4];
                     $linha[5] = $this->formatarData($linha[5]);
+                    $linha[9] = (int)$linha[9];
+                    $linha[10] = (int)$linha[10];
                     $dados = array_combine($this->colunas, $linha);
                     $dados['empresa_id'] = $empresa['id'];
                     $bd->insert($this->tabela, $dados);
