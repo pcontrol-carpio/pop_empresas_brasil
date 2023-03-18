@@ -2,8 +2,6 @@
 
 namespace PopEmpresasBrasil;
 
-use SplFixedArray;
-
 class Estabelecimento extends PopEmpresasBrasil
 {
 

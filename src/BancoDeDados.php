@@ -54,19 +54,22 @@ class BancoDeDados
             return false;
         }
         $colunas = implode(',', array_keys($dados));
+        $valores = '';
         foreach (array_values($dados) as $valor) {
-            isset($valores) ? $valores .= ',' : $valores = '';
+            $valor = trim($valor);
             if (!is_string($valor)) {
                 $valores .= $valor;
             } else {
-                $valores .= '\'' . $this->conexao->real_escape_string($valor) . '\'';
+                $valores .= '\'' . $valor . '\'';
             }
+            $valores .= ',';
         }
+        $valores = substr($valores, 0, -1);
         $query = "INSERT INTO $tabela ({$colunas}) VALUES ({$valores});";
         echo $query;
         echo PHP_EOL;
         echo PHP_EOL;
-        echo '<hr/>';
+        echo PHP_EOL;
         try {
             $this->conexao->real_query($query);
             return (int)$this->conexao->insert_id;

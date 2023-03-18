@@ -44,6 +44,9 @@ class Simples extends PopEmpresasBrasil
     {
         $query = "UPDATE base SET simples = {$data['opcao_pelo_simples']}, mei = {$data['opcao_pelo_mei']} WHERE empresa_id = {$empresaId};";
         echo $query;
+        echo PHP_EOL;
+        echo PHP_EOL;
+        echo PHP_EOL;
         return $bd->query($query);
     }
 

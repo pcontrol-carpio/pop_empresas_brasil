@@ -5,14 +5,20 @@ require "config.php";
 
 use PopEmpresasBrasil\Estabelecimento;
 
-$dir = 'arquivos/K3241.K03200Y4.D20709.ESTABELE';
+//$caminho = '../data/output-extract';
+//$arquivo = 'K3241.K03200Y0.D20709.EMPRECSV';
+
+$caminho = 'arquivos/marco';
+$arquivo = 'ESTABELE.csv';
+$dir = "$caminho/$arquivo";
 
 $cnae = new Estabelecimento($dir);
 $cnae->popularTabela();
 
 echo PHP_EOL;
-echo 'Estabelecimento finalizado.';
+echo 'ESTABELECIMENTO finalizado.';
 
-file_put_contents("{$dir}.txt", "{$dir} - Finalizado em: " . date('d/m/Y H:i:s'), FILE_APPEND);
+$caminhoFim = "../data/fim/$arquivo";
+file_put_contents("{$caminhoFim}.txt", "{$dir} - Finalizado em: " . date('d/m/Y H:i:s'), FILE_APPEND);
 
 ?>
