@@ -1,0 +1,5 @@
+Ordem para popular tabelas
+1 - Empresa
+2 - Simples
+3 - Sócio
+4 - Estabelecimento (junto popula a tabela base)

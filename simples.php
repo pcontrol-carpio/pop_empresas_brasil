@@ -8,8 +8,8 @@ use PopEmpresasBrasil\Simples;
 //$caminho = '../data/output-extract';
 //$arquivo = 'K3241.K03200Y0.D20709.EMPRECSV';
 
-$caminho = 'arquivos/marco';
-$arquivo = 'SIMPLES.csv';
+$caminho = './arquivos/2024';
+$arquivo = 'simples.txt';
 $dir = "$caminho/$arquivo";
 
 $cnae = new Simples($dir);

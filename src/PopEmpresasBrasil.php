@@ -21,6 +21,10 @@ class PopEmpresasBrasil implements PopEmpresasBrasilInterface
             foreach ($linhas as $linha) {
                 $linha[1] = $this->trataTexto($linha[1]);
                 $registros = array_combine($this->colunas, $linha);
+
+                var_dump($registros);
+                echo PHP_EOL;
+
                 $bd->insert($this->tabela, $registros);
             }
         }

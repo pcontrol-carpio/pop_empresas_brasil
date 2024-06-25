@@ -49,14 +49,14 @@ class Estabelecimento extends PopEmpresasBrasil
             foreach ($linhas as $linha) {
                 if (!is_null($linha[0]) && !empty($linha[0])) {
                     $empresa = $this->selectEmpresa($bd, $linha[0]);
-                    if (!is_null($empresa) && !empty($empresa) && count($linha) == 30) {
+                    if (!empty($empresa) && count($linha) == 30) {
 
                         $dadosEstabelecimento = array_combine($this->colunas, $linha);
                         $dadosEstabelecimento['cnpj'] = $linha[0] . $linha[1] . $linha[2];
                         $dadosEstabelecimento['empresa_id'] = !is_null($empresa) ? $empresa['id'] : null;
 
                         $razaoSocial = !is_null($empresa) ? $empresa['razao_social'] : null;
-                        if (empty($linha[4]) || is_null($linha[4])) {
+                        if (empty($linha[4])) {
                             $dadosEstabelecimento['nome_fantasia'] = $razaoSocial;
                         }
 

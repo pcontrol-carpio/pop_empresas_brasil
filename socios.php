@@ -6,10 +6,12 @@ require "config.php";
 use PopEmpresasBrasil\Socio;
 
 //$caminho = '../data/output-extract';
-//$arquivo = 'K3241.K03200Y0.D20709.EMPRECSV';
+//$arquivo = '';
+//
+//$dir = "$caminho/$arquivo";
 
-$caminho = 'arquivos/marco';
-$arquivo = 'SOCIO.csv';
+$caminho = './arquivos/2024';
+$arquivo = 'socio.txt';
 $dir = "$caminho/$arquivo";
 
 $cnae = new Socio($dir);

@@ -8,8 +8,8 @@ use PopEmpresasBrasil\Estabelecimento;
 //$caminho = '../data/output-extract';
 //$arquivo = 'K3241.K03200Y0.D20709.EMPRECSV';
 
-$caminho = 'arquivos/marco';
-$arquivo = 'ESTABELE.csv';
+$caminho = './arquivos/2024';
+$arquivo = 'estab.txt';
 $dir = "$caminho/$arquivo";
 
 $cnae = new Estabelecimento($dir);
