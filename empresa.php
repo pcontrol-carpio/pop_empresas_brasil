@@ -5,11 +5,8 @@ require "config.php";
 
 use PopEmpresasBrasil\Empresa;
 
-//$caminho = '../data/output-extract';
-//$arquivo = '';
-
-$caminho = './arquivos/2024';
-$arquivo = 'emp.txt';
+$caminho = '../data/output-extract';
+$arquivo = 'K3241.K03200Y0.D40713.EMPRECSV';
 
 $dir = "$caminho/$arquivo";
 
